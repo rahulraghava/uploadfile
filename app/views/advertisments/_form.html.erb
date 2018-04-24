@@ -1,0 +1,58 @@
+<%= form_with(model: advertisment, local: true) do |form| %>
+  <% if advertisment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(advertisment.errors.count, "error") %> prohibited this advertisment from being saved:</h2>
+
+      <ul>
+      <% advertisment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year, id: :advertisment_year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kmdriven %>
+    <%= form.text_field :kmdriven, id: :advertisment_kmdriven %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ownercount %>
+    <%= form.number_field :ownercount, id: :advertisment_ownercount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price, id: :advertisment_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :color %>
+    <%= form.text_field :color, id: :advertisment_color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fueltype %>
+    <%= form.number_field :fueltype, id: :advertisment_fueltype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :brand_id %>
+    <%= form.text_field :brand_id, id: :advertisment_brand_id %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :variant_id %>
+    <%= form.text_field :variant_id, id: :advertisment_variant_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

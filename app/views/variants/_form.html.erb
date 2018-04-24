@@ -1,0 +1,30 @@
+<%= form_with(model: variant, local: true) do |form| %>
+  <% if variant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(variant.errors.count, "error") %> prohibited this variant from being saved:</h2>
+
+      <ul>
+      <% variant.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model, id: :variant_model %>
+  </div>
+
+
+     <select id="idd" name="idd" class="form-control" >
+											<% @brands.find_each do |brand| %>
+											
+						<option value = <%= brand.id %>><%= brand.name%></option>
+				      
+				    <% end %>
+				    </select>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

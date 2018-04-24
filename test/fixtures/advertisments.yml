@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  kmdriven: 1.5
+  ownercount: 1
+  price: 1.5
+  color: MyString
+  fueltype: 1
+  brand: one
+  user: one
+  variant: one
+
+two:
+  year: 1
+  kmdriven: 1.5
+  ownercount: 1
+  price: 1.5
+  color: MyString
+  fueltype: 1
+  brand: two
+  user: two
+  variant: two
