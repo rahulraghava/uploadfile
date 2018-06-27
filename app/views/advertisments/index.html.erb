@@ -82,12 +82,13 @@ function ChangeCarList() {
 								<div class="btn-group">
 								<div class="input-group"> 
 											<select id="brandss" name="brand_id" class="form-control" onchange="ChangeCarList()" >
+											   <option value ="0">none</option>
 											   <% @brands.find_each do |brand| %>
 											  
 											    <option value = "<%= brand.id %>"><%= brand.name %></option>
 											    <% end %>
 											</select>
-						<!--<th class="column-02"></th>
+					<!--	<th class="column-02"></th>
 						<th class="column-02"> </th>
 						<th class="column-02"><p class="columnHeading">Model</p>
 						  	<form class="form-inline" role="form">
@@ -96,11 +97,11 @@ function ChangeCarList() {
 								<select id="variantss" name="Brand id" class="form-control" >
 											<% @variants.find_each do |variant| %>
 											<% @b =  @brands.find(variant.brand_id) %>
-						<option value = "<%= variant.brand_id %>"><%= variant.model%></option>
+						<option value = "<%= variant.brand_id %>" disabled= "true"><%= variant.model%></option>
 				      
 				    <% end %>
-						    </select>-->
-						    <form action= "/advertisements/advertisement_params " method="post">
+						    </select>
+						    <form action= "/advertisements/advertisement_params " method="post">-->
 						    
 						<th class="column-03"></th>
 						<th class="column-03"> </th>
@@ -122,10 +123,15 @@ function ChangeCarList() {
 						  	<form class="form-inline" role="form">
 								<div class="btn-group">
 								<div class="input-group"> 
+								<div>min
 											<input name="price_min" id="price_min" class="form-control input-number" type="" min="1000" max="120000" >
-									- <input name="price_max" id="price_max" class="form-control input-number" type="text" min="0" max="120000" >
+									</div>
+									<div>
+											- max 
+									<input name="price_max" id="price_max" class="form-control input-number" type="text" min="0" max="120000" >
+								
+									</div>
 								</div>
-						
 							<th class="column-06"></th>
 						<th class="column-06"> </th>
 						<th class="column-06"><p class="columnHeading">FuelType</p>
@@ -134,9 +140,9 @@ function ChangeCarList() {
 								<div class="input-group"> 
 											<select id="fueltyp" name="fueltyp" class="form-control" >
 											
-											
-						<option value = 0>Petrol</option>
-						<option value = 1>Diesel</option>
+										<option value="0">none</option>	
+						<option value = 1>Petrol</option>
+						<option value = 2>Diesel</option>
 				      
 				   
 						    </select>
@@ -165,44 +171,54 @@ function ChangeCarList() {
 		</div>
 	</div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Brand</th>
-      <th>Variant</th>
-      <th>Year</th>
-      <th>Kmdriven</th>
-      <th>Ownercount</th>
-      <th>Price</th>
-      <th>Color</th>
-      <th>Fueltype</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @advertisments.each do |advertisment| %>
-      <tr>
-        <td><%= @brands.find(advertisment.brand_id).name %></td>
-        <td><%= @variants.find(advertisment.variant_id).model %></td>
-        <td><%= advertisment.year %></td>
-        <td><%= advertisment.kmdriven %></td>
-        <td><%= advertisment.ownercount %></td>
-        <td><%= advertisment.price %></td>
-        <td><%= advertisment.color %></td>
-        <td><%= advertisment.fueltype %></td>
-        
-        <td><%= link_to 'Show', advertisment %></td>
-        <td><%= link_to 'Edit', edit_advertisment_path(advertisment) %></td>
-        <td><%= link_to 'Destroy', advertisment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= @brs %>
-<%= @year %>
-<%= @f %>
-
+<% @advertisments.each do |advertisment| %>
+	<% @b = @brands.find(advertisment.brand_id).name %>
+	<% @v = @variants.find(advertisment.variant_id).model %>
+	<% @car = @b + " " + @v %>
+<div class="row">
+  <div class="col-sm-2">
+    <img src=<%= BingImageSearch.imageurl("512e55fa01504a33a8a1ae5b2d321736", @car)%> class="media-object" style="width:150px;height:150px">
+  </div>
+  <div class="col-sm-10">
+	<h3 > <%= link_to @car , advertisment %></h3>
+	<div class="row">
+		<div class="col-sm-2">
+			<b>Year</b>
+			<p><%= advertisment.year %></p>
+		</div>
+	
+    
+		<div class="col-sm-2">
+			<b>KM Driven</b>
+			<p><%= advertisment.kmdriven %></p>
+		</div>
+		<div class="col-sm-2">
+			<b>Owner Count</b>
+			<p><%= advertisment.ownercount %></p>
+		</div>
+		<div class="col-sm-2">
+			<b>Fuel Type</b>
+			<% if(advertisment.fueltype == 0) %>
+        		<p>Petrol</p>
+        	<%else%>
+        		<p>Diesel</p>
+        <% end%>
+		</div>
+		<div class="col-sm-2">
+			<b> Colour</b>
+			<p><%= advertisment.color %></p>
+		</div>
+		<div class="col-sm-2">
+			<b> Price</b>
+			<p>€ <%= advertisment.price %></p>
+		</div>
+	</div>
+	
+  </div>
+</div>
 <br>
+<% end %>
+
 
 <%= link_to 'New Advertisment', new_advertisment_path %>

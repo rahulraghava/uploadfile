@@ -32,18 +32,14 @@
 
 <p>
   <strong>Brand:</strong>
-  <%= @advertisment.brand %>
+  <% @b = @brands.find(@advertisment.brand_id).name %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @advertisment.user %>
-</p>
 
 <p>
   <strong>Variant:</strong>
-  <%= @advertisment.variant %>
+  <%= @variants.find(@advertisment.variant_id).model %>
 </p>
 
-<%= link_to 'Edit', edit_advertisment_path(@advertisment) %> |
+
 <%= link_to 'Back', advertisments_path %>

@@ -1,7 +1,8 @@
 class AdvertismentsController < ApplicationController
   before_action :set_advertisment, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-
+  @brands= Brand.all
+  @variants = Variant.all
   # GET /advertisments
   # GET /advertisments.json
   def index
@@ -14,9 +15,26 @@ class AdvertismentsController < ApplicationController
     @year = params['year'].to_i
     @distance = params['mileage'].to_i
     @price = [params['price_min'].to_i, params['price_max'].to_i]
-    @f = params['fueltyp'].to_i
-    if(@brs|| @br ||@year || @distance|| @price)
-     @advertisments = @advertisments.where('brand_id = ?', @brs)
+    @f = params['fueltyp'].to_i - 1
+    if(@brs !=0 ||@year !=0 || @distance != 0|| @price != 0)
+      if(@brs != 0)
+        @advertisments = @advertisments.where('brand_id = ?', @brs)
+      end
+      if(@year > 1950 && @year < 2050)
+        @advertisments = @advertisments.where('year > ?', @year)
+      end
+      if(@f == 1 || @f == 0)
+        @advertisments = @advertisments.where('fueltype = ?', @f)
+      end
+      if(@distance != 0)
+        @advertisments = @advertisments.where('kmdriven < ?', @distance)
+      end
+      if(@price[0] != 0)
+        @advertisments = @advertisments.where('price > ?', @price[0])
+      end
+      if(@price[1] != 0)
+        @advertisments = @advertisments.where('price < ?', @price[1])
+      end
     end
     
   end
@@ -24,15 +42,22 @@ class AdvertismentsController < ApplicationController
   # GET /advertisments/1
   # GET /advertisments/1.json
   def show
+    @brands = Brand.all
+    @variants = Variant.all
   end
 
   # GET /advertisments/new
   def new
     @advertisment = Advertisment.new
+    @brands = Brand.all
+    @variants = Variant.all
   end
 
   # GET /advertisments/1/edit
   def edit
+    @advertisment = Advertisment.new
+    @brands = Brand.all
+    @variants = Variant.all
   end
 
   # POST /advertisments
@@ -40,6 +65,8 @@ class AdvertismentsController < ApplicationController
   def create
     @advertisment = Advertisment.new(advertisment_params)
     @advertisment.user_id = current_user.id
+    @advertisment.brand_id = params[:brand_id]
+    @advertisment.variant_id = params[:varientid]
     respond_to do |format|
       if @advertisment.save
         format.html { redirect_to @advertisment, notice: 'Advertisment was successfully created.' }

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.5.1'
 gem 'devise'
 
 git_source(:github) do |repo_name|
@@ -33,7 +33,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'bingImageSearch'
+gem 'json'
+gem 'rails-observers'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

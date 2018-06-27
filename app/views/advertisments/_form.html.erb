@@ -42,14 +42,24 @@
   </div>
 
   <div class="field">
-    <%= form.label :brand_id %>
-    <%= form.text_field :brand_id, id: :advertisment_brand_id %>
+    <select id="brandss" name="brand_id" class="form-control" >
+		 <option value ="0">none</option>
+		 <% @brands.find_each do |brand| %>
+											  
+		  <option value = "<%= brand.id %>"><%= brand.name %></option>
+	  <% end %>
+		</select>
   </div>
 
 
   <div class="field">
-    <%= form.label :variant_id %>
-    <%= form.text_field :variant_id, id: :advertisment_variant_id %>
+    <select id="variantss" name="varientid" class="form-control" >
+											<% @variants.find_each do |variant| %>
+											
+						<option value = "<%= variant.id %>" ><%= variant.model%></option>
+				      
+		  <% end %>
+		  </select>
   </div>
 
   <div class="actions">
