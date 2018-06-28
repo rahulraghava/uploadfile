@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+
 gem 'devise'
 
 git_source(:github) do |repo_name|
